@@ -19,6 +19,9 @@ jobs:
           flutter-version: '3.41.1'
       - run: flutter pub get
       - run: flutter build web --release --base-href "/schreib/"
+      - run: |
+            echo "---- base href in built index.html ----"
+            grep -n "<base" build/web/index.html || true
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
