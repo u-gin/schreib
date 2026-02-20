@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:schreib/widgets/quote_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -228,6 +229,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 70,
                     fit: BoxFit.cover,
                   ),
+
+                  Row(
+                    children: [
+                      _NavItem(label: 'Home', onTap: () {}),
+                      const SizedBox(width: 28),
+                      _NavItem(label: 'Favourites', onTap: () {}),
+                      const SizedBox(width: 28),
+                      _NavItem(label: 'About', onTap: () {}),
+                    ],
+                  ),
                 ],
               ),
 
@@ -275,6 +286,43 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatefulWidget {
+  final String label;
+  final VoidCallback onTap;
+
+  const _NavItem({required this.label, required this.onTap});
+
+  @override
+  State<_NavItem> createState() => _NavItemState();
+}
+
+class _NavItemState extends State<_NavItem> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 180),
+          style: GoogleFonts.inter(
+            fontSize: 14,
+            fontWeight: _hovered ? FontWeight.w600 : FontWeight.w400,
+            color: _hovered
+                ? Colors.black.withOpacity(0.85)
+                : Colors.black.withOpacity(0.45),   
+            letterSpacing: 0.1,
+          ),
+          child: Text(widget.label),
         ),
       ),
     );
