@@ -219,11 +219,16 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(
-                'assets/images/logo.svg',
-                width: 70,
-                height: 70,
-                fit: BoxFit.cover,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/logo.svg',
+                    width: 70,
+                    height: 70,
+                    fit: BoxFit.cover,
+                  ),
+                ],
               ),
 
               
