@@ -230,14 +230,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.cover,
                   ),
 
-                  Row(
-                    children: [
-                      _NavItem(label: 'Home', onTap: () {}),
-                      const SizedBox(width: 28),
-                      _NavItem(label: 'Favourites', onTap: () {}),
-                      const SizedBox(width: 28),
-                      _NavItem(label: 'About', onTap: () {}),
-                    ],
+                  GestureDetector(
+                    onTap: (){},
+                    child: SizedBox(
+                      child: Padding( 
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              _NavItem(label: 'Home', onTap: () {}),
+                              const SizedBox(width: 28),
+                              _NavItem(label: 'Join', onTap: () {}),
+                              const SizedBox(width: 28),
+                              _NavItem(label: 'About', onTap: () {}),
+                              const SizedBox(width: 28),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -253,16 +265,16 @@ class _HomeScreenState extends State<HomeScreen> {
               
                     final inTween = Tween<Offset>(
                       begin: slideFromRight
-                          ? const Offset(1.0, 0.0) // enter from right
-                          : const Offset(-1.0, 0.0), // enter from left
+                          ? const Offset(1.0, 0.0) 
+                          : const Offset(-1.0, 0.0), 
                       end: Offset.zero,
                     );
               
                     final outTween = Tween<Offset>(
                       begin: Offset.zero,
                       end: slideFromRight
-                          ? const Offset(-1.0, 0.0) // exit to left
-                          : const Offset(1.0, 0.0), // exit to right
+                          ? const Offset(-1.0, 0.0) 
+                          : const Offset(1.0, 0.0), 
                     );
               
                     return ClipRect(
@@ -315,8 +327,8 @@ class _NavItemState extends State<_NavItem> {
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 180),
           style: GoogleFonts.inter(
-            fontSize: 14,
-            fontWeight: _hovered ? FontWeight.w600 : FontWeight.w400,
+            fontSize: 15,
+            fontWeight: _hovered ? FontWeight.w800 : FontWeight.w600,
             color: _hovered
                 ? Colors.black.withOpacity(0.85)
                 : Colors.black.withOpacity(0.45),   
