@@ -237,8 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [ 
-                            Icon(Icons.),
-                            _NavItem(label: 'Submit your thoughts', onTap: () {}),
+                           
+                            _NavItem(label: 'Submit your thoughts here!', onTap: () {}),
                             const SizedBox(width: 28),
                             /* _NavItem(label: 'Join', onTap: () {}),
                             const SizedBox(width: 28),
@@ -325,14 +325,25 @@ class _NavItemState extends State<_NavItem> {
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 180),
           style: GoogleFonts.inter(
-            fontSize: 15,
-            fontWeight: _hovered ? FontWeight.w800 : FontWeight.w600,
+            fontSize: 18,
+            fontWeight: _hovered ? FontWeight.w700 : FontWeight.w500,
             color: _hovered
                 ? Colors.black.withOpacity(0.85)
                 : Colors.black.withOpacity(0.45),   
             letterSpacing: 0.1,
           ),
-          child: Text(widget.label),
+          child: Container(
+            decoration: BoxDecoration(
+              color: _hovered
+                  ? Colors.black.withOpacity(0.05)
+                  : Colors.black.withOpacity(0.03), 
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(widget.label),
+            )
+            ),
         ),
       ),
     );
