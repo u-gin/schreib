@@ -231,22 +231,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   GestureDetector(
-                    onTap: (){},
+                    onTap: () {},
                     child: SizedBox(
-                      child: Padding( 
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              _NavItem(label: 'Home', onTap: () {}),
-                              const SizedBox(width: 28),
-                              _NavItem(label: 'Join', onTap: () {}),
-                              const SizedBox(width: 28),
-                              _NavItem(label: 'About', onTap: () {}),
-                              const SizedBox(width: 28),
-                            ],
-                          ),
+                      child:  Center(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [ 
+                            Icon(Icons.),
+                            _NavItem(label: 'Submit your thoughts', onTap: () {}),
+                            const SizedBox(width: 28),
+                            /* _NavItem(label: 'Join', onTap: () {}),
+                            const SizedBox(width: 28),
+                            _NavItem(label: 'About', onTap: () {}),
+                            const SizedBox(width: 28), */
+                          ],
                         ),
                       ),
                     ),
