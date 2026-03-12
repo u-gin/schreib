@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             _NavItem(
-                              label: 'Submit your thoughts here!',
+                              label: 'Submit quote here!',
                               onTap: () {
                                 context.push('/submit');
                               },
