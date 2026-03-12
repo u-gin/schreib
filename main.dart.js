@@ -84418,7 +84418,7 @@ O(a){var s,r=this,q=null,p=r.f
 p===$&&A.a()
 s=new A.dJ(A.k(p.i(0,"quote"))+"_"+A.k(r.f.i(0,"author")),t.kK)
 p=t.E
-return A.mI(q,A.auq(q,A.aQ(A.fL("FF"+A.kx("#F2F8FC","#",""),16)),new A.cX(B.nI,A.oG(A.b([A.NI(A.b([A.aAf("assets/images/logo.svg",B.mq,70,70),A.mI(q,A.fA(A.ju(A.NI(A.b([new A.ER("Submit your thoughts here!",new A.alh(a),q),B.Sa],p),B.aX,B.bx,B.bm),q,q),q,q),B.al,!1,q,q,q,q,q,q,q,q,q,q,q,q,q,q,new A.ali(),q,q,q,q,q,q)],p),B.aX,B.hw,B.bm),A.ju(A.aH5(new A.l9(A.aTm(a,r.f),s),B.He,A.aR5(),B.nr,B.Gi,new A.alj(r,s)),q,q),B.Sc],p),B.bt,B.hw,B.bm),q)),B.al,!1,q,q,q,q,q,q,q,q,q,q,q,q,q,q,r.gaca(),q,q,q,q,q,q)}}
+return A.mI(q,A.auq(q,A.aQ(A.fL("FF"+A.kx("#F2F8FC","#",""),16)),new A.cX(B.nI,A.oG(A.b([A.NI(A.b([A.aAf("assets/images/logo.svg",B.mq,70,70),A.mI(q,A.fA(A.ju(A.NI(A.b([new A.ER("Submit quote here!",new A.alh(a),q),B.Sa],p),B.aX,B.bx,B.bm),q,q),q,q),B.al,!1,q,q,q,q,q,q,q,q,q,q,q,q,q,q,new A.ali(),q,q,q,q,q,q)],p),B.aX,B.hw,B.bm),A.ju(A.aH5(new A.l9(A.aTm(a,r.f),s),B.He,A.aR5(),B.nr,B.Gi,new A.alj(r,s)),q,q),B.Sc],p),B.bt,B.hw,B.bm),q)),B.al,!1,q,q,q,q,q,q,q,q,q,q,q,q,q,q,r.gaca(),q,q,q,q,q,q)}}
 A.alg.prototype={
 $0(){var s,r,q,p,o=this.a
 o.r=!0
