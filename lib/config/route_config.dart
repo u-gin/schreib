@@ -6,7 +6,7 @@ GoRouter routerConfig = GoRouter(
   routes: [
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
     GoRoute(
-      path: '/submit',
+      path: 'submit',
       builder: (context, state) => const SubmitQuoteScreen(),
     ),
   ],
