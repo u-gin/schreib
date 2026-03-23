@@ -35,10 +35,12 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
           ),
           backgroundColor: Colors.black87,
           behavior: SnackBarBehavior.floating,
+          width: 200,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           margin: const EdgeInsets.all(20),
+          dismissDirection: DismissDirection.down,
         ),
       );
 
@@ -61,7 +63,6 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Top bar with logo — full width
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32.0,
@@ -80,7 +81,6 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
               ),
             ),
 
-            // Centred, width-capped form content
             Expanded(
               child: Center(
                 child: SingleChildScrollView(
