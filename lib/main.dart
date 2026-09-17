@@ -13,16 +13,23 @@ void main() {
   // so pages are linkable. No-op off the web.
   usePathUrlStrategy();
 
-  final database = AppDatabase();
-
   runApp(
     ProviderScope(
       // The one place the app decides where writing is stored. Phase 2 swaps
       // this for a syncing repository and nothing above it changes.
+      //
+      // Built on first read, never at startup. Opening a database is
+      // platform-specific work that can fail -- on the web `driftDatabase`
+      // throws unless it is handed wasm options -- and a failure in `main`
+      // takes down the whole app, including the screens that never touch
+      // storage. Web writing will need `sqlite3.wasm` and `drift_worker.js`
+      // served from web/ before anything reads this.
       overrides: [
-        entryRepositoryProvider.overrideWithValue(
-          LocalEntryRepository(database),
-        ),
+        entryRepositoryProvider.overrideWith((ref) {
+          final database = AppDatabase();
+          ref.onDispose(database.close);
+          return LocalEntryRepository(database);
+        }),
       ],
       child: MyApp(router: createAppRouter()),
     ),
