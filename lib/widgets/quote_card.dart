@@ -9,9 +9,9 @@ Widget quoteCard(BuildContext context, Map<String, String> currentQuote) {
     builder: (context, c) {
       // Responsive sizing based on available width
       final w = c.maxWidth.clamp(320.0, 900.0);
-      final quoteSize = (w * 0.055).clamp(20.0, 34.0);   
-      final authorSize = (w * 0.028).clamp(12.0, 18.0);  
-      final markSize = (w * 0.22).clamp(72.0, 150.0);    
+      final quoteSize = (w * 0.055).clamp(20.0, 34.0);
+      final authorSize = (w * 0.028).clamp(12.0, 18.0);
+      final markSize = (w * 0.22).clamp(72.0, 150.0);
       final lineHeight = (w * 0.07).clamp(28.0, 44.0);
 
       return ConstrainedBox(
@@ -20,17 +20,19 @@ Widget quoteCard(BuildContext context, Map<String, String> currentQuote) {
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: Stack(
             children: [
-              // Big decorative quote mark
+              // Big decorative quote mark. This has to stay inside the card's
+              // own bounds: the slide transition wraps the card in a ClipRect,
+              // so anything hanging off the edge gets sliced away.
               Positioned(
-                top: -18,
-                left: -10,
+                top: 0,
+                left: 0,
                 child: IgnorePointer(
                   child: Text(
                     '“',
                     style: GoogleFonts.inter(
                       fontSize: markSize,
                       fontWeight: FontWeight.w800,
-                      color: Colors.black.withOpacity(0.06),
+                      color: Colors.black.withValues(alpha: 0.06),
                       height: 0.9,
                     ),
                   ),
@@ -61,7 +63,7 @@ Widget quoteCard(BuildContext context, Map<String, String> currentQuote) {
                           fontSize: authorSize,
                           fontWeight: FontWeight.w500,
                           fontStyle: FontStyle.italic,
-                          color: Colors.black.withOpacity(0.70),
+                          color: Colors.black.withValues(alpha: 0.70),
                           height: 1.2,
                         ),
                       ),
