@@ -166,3 +166,5 @@ app.*.symbols
 build/
 .dart_tool/
 *.cache.dill*
+# Node tooling for the CI web smoke test
+node_modules/
