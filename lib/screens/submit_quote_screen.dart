@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubmitQuoteScreen extends StatefulWidget {
   const SubmitQuoteScreen({super.key});
-
-  static Color colorFromHex(String colorCode) {
-    final hexCode = colorCode.replaceAll('#', '');
-    Color newColor = Color(int.parse('FF$hexCode', radix: 16));
-    return newColor;
-  }
 
   @override
   State<SubmitQuoteScreen> createState() => _SubmitQuoteScreenState();
@@ -25,27 +20,36 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
     return Color(int.parse('FF$hexCode', radix: 16));
   }
 
+  // Nothing is wired up behind this form yet. Until it is, say so rather
+  // than reporting success, and leave the user's text where they typed it.
   void _submitQuote() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Quote submitted!',
+            'Submissions aren’t open yet, so this wasn’t sent — '
+            'your text is still here.',
             style: GoogleFonts.inter(fontWeight: FontWeight.w500),
           ),
           backgroundColor: Colors.black87,
           behavior: SnackBarBehavior.floating,
-          width: 200,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           margin: const EdgeInsets.all(20),
+          duration: const Duration(seconds: 5),
           dismissDirection: DismissDirection.down,
         ),
       );
+    }
+  }
 
-      _quoteController.clear();
-      _authorController.clear();
+  void _goBack() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      // Reached by a deep link or a page refresh, so there is nothing to pop.
+      context.go('/');
     }
   }
 
@@ -71,11 +75,36 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/logo.svg',
-                    width: 70,
-                    height: 70,
-                    fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: _goBack,
+                    child: SvgPicture.asset(
+                      'assets/images/logo.svg',
+                      width: 70,
+                      height: 70,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+
+                  TextButton.icon(
+                    onPressed: _goBack,
+                    icon: const Icon(Icons.arrow_back, size: 18),
+                    label: Text(
+                      'Back',
+                      style: GoogleFonts.inter(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black54,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -117,7 +146,47 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                               ),
                             ),
 
-                            const SizedBox(height: 48),
+                            const SizedBox(height: 20),
+
+                            // Honest about the state of the feature: the form
+                            // is built, the receiving end is not.
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.04),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.info_outline,
+                                    size: 16,
+                                    color: Colors.black.withValues(alpha: 0.45),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      'Submissions aren’t open yet. You can try the '
+                                      'form, but nothing is sent anywhere.',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black.withValues(
+                                          alpha: 0.55,
+                                        ),
+                                        height: 1.4,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            const SizedBox(height: 40),
 
                             // Quote field
                             Text(
@@ -162,7 +231,7 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide(
-                                    color: Colors.black.withOpacity(0.07),
+                                    color: Colors.black.withValues(alpha: 0.07),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -240,7 +309,7 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                   borderSide: BorderSide(
-                                    color: Colors.black.withOpacity(0.07),
+                                    color: Colors.black.withValues(alpha: 0.07),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
