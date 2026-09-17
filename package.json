@@ -1,0 +1,13 @@
+{
+  "name": "schreib-tooling",
+  "private": true,
+  "description": "Build-time checks only. The app itself is Flutter; this exists so CI can load the built web bundle in a real browser.",
+  "type": "module",
+  "scripts": {
+    "smoke": "node tool/web_smoke.mjs"
+  },
+  "devDependencies": {
+    "pngjs": "^7.0.0",
+    "puppeteer": "^24.10.0"
+  }
+}

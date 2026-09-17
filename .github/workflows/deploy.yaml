@@ -38,6 +38,27 @@ jobs:
       - name: Add SPA fallback
         run: cp build/web/index.html build/web/404.html
 
+      # Everything above runs on the Dart VM, which cannot catch a failure
+      # that only happens in a browser. One did: a database opened during
+      # main() threw on web only, white-screened every route, and shipped
+      # behind a green build. This loads the bundle that is about to deploy
+      # and fails if it throws or paints nothing.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - run: npm ci
+
+      - name: Web smoke test
+        run: node tool/web_smoke.mjs build/web
+
       - uses: peaceiris/actions-gh-pages@v4
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
