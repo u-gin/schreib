@@ -5,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:schreib/config/route_config.dart';
 import 'package:schreib/main.dart';
 import 'package:schreib/providers/entry_providers.dart';
+import 'package:schreib/providers/reminder_providers.dart';
 
 import 'support/fake_entry_repository.dart';
+import 'support/fake_reminder_scheduler.dart';
 
 void main() {
   setUpAll(() => GoogleFonts.config.allowRuntimeFetching = false);
@@ -17,6 +19,7 @@ void main() {
     // including every screen that never touches storage. Opening it must
     // stay deferred until something actually reads the repository.
     var opened = false;
+    var scheduler = false;
 
     await tester.pumpWidget(
       ProviderScope(
@@ -24,6 +27,10 @@ void main() {
           entryRepositoryProvider.overrideWith((ref) {
             opened = true;
             return FakeEntryRepository();
+          }),
+          reminderSchedulerProvider.overrideWith((ref) {
+            scheduler = true;
+            return FakeReminderScheduler();
           }),
         ],
         child: MyApp(router: createAppRouter()),
@@ -33,6 +40,11 @@ void main() {
 
     expect(find.text('Submit quote here!'), findsOneWidget);
     expect(opened, isFalse, reason: 'the store was built during startup');
+    expect(
+      scheduler,
+      isFalse,
+      reason: 'the notification plugin was touched during startup',
+    );
   });
 
   testWidgets('the submit route also starts without opening the store', (
@@ -47,6 +59,7 @@ void main() {
             opened = true;
             return FakeEntryRepository();
           }),
+          reminderSchedulerProvider.overrideWithValue(FakeReminderScheduler()),
         ],
         child: MyApp(router: createAppRouter(initialLocation: '/submit')),
       ),
