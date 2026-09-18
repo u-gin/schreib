@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:schreib/theme/app_colors.dart';
+
 class SubmitQuoteScreen extends StatefulWidget {
   const SubmitQuoteScreen({super.key});
 
@@ -14,11 +16,6 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
   final TextEditingController _quoteController = TextEditingController();
   final TextEditingController _authorController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  static Color colorFromHex(String colorCode) {
-    final hexCode = colorCode.replaceAll('#', '');
-    return Color(int.parse('FF$hexCode', radix: 16));
-  }
 
   // Nothing is wired up behind this form yet. Until it is, say so rather
   // than reporting success, and leave the user's text where they typed it.
@@ -63,7 +60,7 @@ class _SubmitQuoteScreenState extends State<SubmitQuoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorFromHex('#F2F8FC'),
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [

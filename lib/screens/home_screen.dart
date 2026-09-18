@@ -5,16 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:schreib/data/quotes.dart';
+import 'package:schreib/theme/app_colors.dart';
 import 'package:schreib/widgets/quote_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
-  static Color colorFromHex(String colorCode) {
-    final hexCode = colorCode.replaceAll('#', '');
-    Color newColor = Color(int.parse('FF$hexCode', radix: 16));
-    return newColor;
-  }
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -51,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: _nextQuote,
       child: Scaffold(
-        backgroundColor: HomeScreen.colorFromHex('#F2F8FC'),
+        backgroundColor: AppColors.background,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -71,13 +66,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       fit: BoxFit.contain,
                     ),
 
-                    _NavItem(
-                      label: 'Submit quote here!',
-                      onTap: () {
-                        // go, not push: an imperative push leaves the address
-                        // bar on '/', so the page would not be linkable.
-                        context.go('/submit');
-                      },
+                    Row(
+                      children: [
+                        _NavItem(
+                          label: 'Write today',
+                          onTap: () => context.go('/write'),
+                        ),
+                        const SizedBox(width: 10),
+                        _NavItem(
+                          label: 'Submit quote here!',
+                          // go, not push: an imperative push leaves the
+                          // address bar on '/', so the page would not be
+                          // linkable.
+                          onTap: () => context.go('/submit'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
