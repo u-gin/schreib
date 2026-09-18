@@ -13,6 +13,17 @@
 //   2. Something is actually painted. A white screen with no exception --
 //      a layout that renders nothing, an engine that never starts -- is
 //      still a broken page.
+//   3. google_fonts never downloads anything. Inter is bundled in
+//      assets/google_fonts, so a fetch means a weight is missing from the
+//      assets and the app has quietly gone back to the network to draw
+//      text.
+//
+//      google_fonts requests are content-addressed -- fonts.gstatic.com/s/a/
+//      followed by a hash, with no family name anywhere in the url -- so
+//      they can only be recognised by that path. The engine's own fonts use
+//      named paths (/s/roboto/, /s/notosanssymbols/) and are deliberately
+//      not flagged: CanvasKit downloads those whatever the app bundles,
+//      there is no mobile equivalent, and no app-level font can stop them.
 //
 // The DOM cannot be used for either. Flutter attaches <flutter-view> and
 // defines window.flutterCanvasKit while the *engine* boots, before main()
@@ -117,6 +128,12 @@ for (const route of ROUTES) {
 
   const errors = [];
   page.on('pageerror', (e) => errors.push(`uncaught: ${e.message.trim()}`));
+  page.on('request', (r) => {
+    const url = r.url();
+    if (/fonts\.gstatic\.com\/s\/a\//.test(url)) {
+      errors.push(`google_fonts downloaded a font instead of using assets: ${url}`);
+    }
+  });
   page.on('console', (m) => {
     if (m.type() !== 'error') return;
     // The SPA fallback answers unknown paths with a 404 status by design, so
